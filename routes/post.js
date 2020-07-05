@@ -12,6 +12,7 @@ router.get('/allposts',requireLogin,(req,res) => {
     Post.find()
     .populate("postedBy","_id name info pic")
     .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
     .then(posts => {
         res.json({posts})
     })
@@ -21,10 +22,11 @@ router.get('/allposts',requireLogin,(req,res) => {
 })
 
 router.get('/getsubpost',requireLogin,(req,res) => {
-    //if posetdBy in following
+    //if postedBy in following
     Post.find({postedBy:{$in:req.user.following}})
     .populate("postedBy","_id name info pic")
     .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
     .then(posts => {
         res.json({posts})
     })

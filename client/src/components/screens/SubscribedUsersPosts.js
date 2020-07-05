@@ -5,7 +5,7 @@ import M from 'materialize-css'
 
 const Home = () => {
     const [data,setData] = useState([])
-    const {state,dispatch} = useContext(UserContext)
+    const {state} = useContext(UserContext)
     useEffect(() => {
         fetch('/getsubpost',{
             headers:{
@@ -30,7 +30,7 @@ const Home = () => {
         }).then(res => res.json())
         .then(result => {
             const newData = data.map(item => {
-                if(item._id == result._id){
+                if(item._id === result._id){
                     return result
                 }else{
                     return item
@@ -54,9 +54,8 @@ const Home = () => {
             })
         }).then(res => res.json())
         .then(result => {
-            // console.log(result)
             const newData = data.map(item => {
-                if(item._id == result._id){
+                if(item._id === result._id){
                     return result
                 }else{
                     return item
@@ -82,7 +81,7 @@ const Home = () => {
         }).then(res => res.json())
         .then(result => {
             const newData = data.map(item => {
-                if(item._id == result._id){
+                if(item._id === result._id){
                     return result
                 }else{
                     return item
@@ -114,6 +113,8 @@ const Home = () => {
     }
 
     return (
+        <>
+        {!state?
         <div className="home">
             {
                 data.map(item => {
@@ -121,14 +122,14 @@ const Home = () => {
                         <div className="card home-card" key={item._id}>
                         <h5 style={{padding:"5px"}}>
                             <Link to={item.postedBy._id !== state._id ? "/profile/"+item.postedBy._id : "/profile"}>{item.postedBy.name}</Link>
-                            {item.postedBy._id == state._id
+                            {item.postedBy._id === state._id
                             && <i className="material-icons" style={{float:"right"}} onClick={() => {deletePost(item._id)}} 
                             >delete</i>
                             }
                             
                         </h5>
                         <div className="card-image">
-                            <img src={item.photo} />
+                            <img alt="posted pic" src={item.photo} />
                         </div>
                         <div className="card-content">
                             <i className="material-icons" style={{color:"red"}}>favorite</i>
@@ -168,8 +169,10 @@ const Home = () => {
                     )
                 })
             }
- 
         </div>
+        : <h2 style={{textAlign:"center"}}>You haven't followed anyone yet</h2>
+        }
+        </>
     )
 }
 

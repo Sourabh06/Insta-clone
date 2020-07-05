@@ -13,6 +13,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    resetToken:String,
+    expireToken:Date,
     info:{
         type:String,
         default:"pseudo info"

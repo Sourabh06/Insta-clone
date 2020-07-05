@@ -19,7 +19,7 @@ router.get('/user/:id',requireLogin,(req,res) => {
             res.json({user,posts})
         })
     }).catch(err =>{
-        return res.status(404).json({error: "User not found"})
+        return res.status(404).json({error: "User not found\n Error: " + err})
     })
 })
 
@@ -76,11 +76,25 @@ router.put('/updatepic',requireLogin,(req,res) => {
         {new:true},
         (err,result) => {
             if(err){
-                return res.status(422).json({error:"Pic can't be posted"})
+                return res.status(422).json({error:"Pic can't be posted \n Error: " + err})
             }
             res.json(result)
         }
     )
 })
+
+
+router.post('/search-users',(req,res) => {
+    let userPattern = new RegExp("^"+req.body.query)
+    User.find({email:{$regex:userPattern}})
+    .select("_id email")
+    .then(user => {
+        res.json({user})
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+
 
 module.exports = router
