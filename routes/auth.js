@@ -102,14 +102,14 @@ router.post('/reset-password',(req,res) => {
         User.findOne({email:req.body.email})
         .then(user => {
             if(!user){
-                return res.status(422).json({error:"User doesn;t exist with that email"})
+                return res.status(422).json({error:"User doesn't exist with that email"})
             }
             user.resetToken = token
             user.expireToken = Date.now() + 3600000
             user.save().then((result) => {
                 transporter.sendMail({
                     to:user.email,
-                    from:"smallbird272@stempmail.com",
+                    from:"skstestmail0@gmail.com",
                     subject:"Password Reset",
                     html:`
                     <p>You requested for password reset </p>
@@ -139,7 +139,7 @@ router.post('/new-password',(req,res) => {
         }
         transporter.sendMail({
             to:user.email,
-            from:"smallbird272@stempmail.com",
+            from:"skstestmail0@gmail.com",
             subject:"Password Changed",
             html:`
             <p>Your password has been changed </p>
