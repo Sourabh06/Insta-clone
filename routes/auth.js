@@ -109,7 +109,7 @@ router.post('/reset-password',(req,res) => {
             user.save().then((result) => {
                 transporter.sendMail({
                     to:user.email,
-                    from:"zistebimle@enayu.com",
+                    from:"smallbird272@stempmail.com",
                     subject:"Password Reset",
                     html:`
                     <p>You requested for password reset </p>
@@ -137,6 +137,22 @@ router.post('/new-password',(req,res) => {
         if(!user){
             return res.status(422).json({error:"Try again. Session expired"})
         }
+        transporter.sendMail({
+            to:user.email,
+            from:"smallbird272@stempmail.com",
+            subject:"Password Changed",
+            html:`
+            <p>Your password has been changed </p>
+            <p>If you have not changed it, </p>
+            <h5>
+                Click this <a href="${EMAIL}/reset/">link</a> to reset password
+            </h5>
+            <br />
+            `
+        }).catch(err => {
+            console.log(err)
+        })
+
         bcrypt.hash(newPassword,12).then(hashedpassword => {
             user.password = hashedpassword
             user.resetToken = undefined
