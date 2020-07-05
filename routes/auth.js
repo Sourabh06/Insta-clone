@@ -116,6 +116,8 @@ router.post('/reset-password',(req,res) => {
                     <h5>
                         Click this <a href="${EMAIL}/reset/${token}">link</a> to reset password
                     </h5>
+                    <br />
+                    <p>P.S. This link expires in 1 hour</p>
                     `
                 })
                 res.json({message:"Check your email"})
