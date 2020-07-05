@@ -52,4 +52,4 @@ const Login = () => {
 }
 
 
-export default NewPassword
+export default Login
