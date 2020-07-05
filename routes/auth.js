@@ -109,7 +109,7 @@ router.post('/reset-password',(req,res) => {
             user.save().then((result) => {
                 transporter.sendMail({
                     to:user.email,
-                    from:"skstestmail0@gmail.com",
+                    from:"smallbird272@stempmail.com",
                     subject:"Password Reset",
                     html:`
                     <p>You requested for password reset </p>
@@ -139,7 +139,7 @@ router.post('/new-password',(req,res) => {
         }
         transporter.sendMail({
             to:user.email,
-            from:"skstestmail0@gmail.com",
+            from:"smallbird272@stempmail.com",
             subject:"Password Changed",
             html:`
             <p>Your password has been changed </p>
